@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PharmaWarehouse.Application/PharmaWarehouse.Application.csproj" />
+    <Project Path="src/PharmaWarehouse.Domain/PharmaWarehouse.Domain.csproj" />
+    <Project Path="src/PharmaWarehouse.Generator/PharmaWarehouse.Generator.csproj" />
+    <Project Path="src/PharmaWarehouse.Grpc/PharmaWarehouse.Grpc.csproj" />
+    <Project Path="src/PharmaWarehouse.Infrastructure/PharmaWarehouse.Infrastructure.csproj" />
+    <Project Path="src/PharmaWarehouse.Web/PharmaWarehouse.Web.csproj" />
+  </Folder>
+</Solution>
