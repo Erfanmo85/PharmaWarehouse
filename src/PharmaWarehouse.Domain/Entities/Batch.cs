@@ -15,6 +15,14 @@ public class Batch : BaseEntity
 
     public bool IsExpired(DateOnly today) => ExpiryDate < today;
 
+    public void Add(int amount)
+    {
+        if (amount <= 0)
+            throw new ArgumentException("مقدار باید بزرگتر از صفر باشد.");
+
+        Quantity += amount;
+    }
+
     public void Remove(int amount)
     {
         if (amount <= 0)

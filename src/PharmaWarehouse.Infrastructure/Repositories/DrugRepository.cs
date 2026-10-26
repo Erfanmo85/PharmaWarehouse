@@ -40,4 +40,11 @@ public class DrugRepository : BaseRepository<Drug>, IDrugRepository
 
         return (items, total);
     }
+    public Task<List<Drug>> GetLowStockAsync(CancellationToken ct)
+    => Db.Drugs
+        .AsNoTracking()
+        .Include(d => d.Batches)
+        .Where(d => d.Batches.Sum(b => b.Quantity) <= d.MinStockLevel)
+        .OrderBy(d => d.Name)
+        .ToListAsync(ct);
 }

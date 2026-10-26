@@ -8,10 +8,12 @@ namespace PharmaWarehouse.Web.Middleware;
 public class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly ILogger<GlobalExceptionHandler> _logger;
+    private readonly IHostEnvironment _env;
 
-    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
+    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, IHostEnvironment env)
     {
         _logger = logger;
+        _env = env;
     }
 
     public async ValueTask<bool> TryHandleAsync(
@@ -53,7 +55,10 @@ public class GlobalExceptionHandler : IExceptionHandler
                 problem = new ProblemDetails
                 {
                     Status = StatusCodes.Status500InternalServerError,
-                    Title = "خطای داخلی سرور."
+                    Title = "خطای داخلی سرور.",
+                    Detail = _env.IsDevelopment()
+                        ? $"{exception.GetType().Name}: {exception.Message} | {exception.InnerException?.Message}"
+                        : null
                 };
                 break;
         }

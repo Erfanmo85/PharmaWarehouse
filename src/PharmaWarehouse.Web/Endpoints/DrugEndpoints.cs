@@ -12,7 +12,7 @@ public static class DrugEndpoints
 {
     public static void MapDrugEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/drugs").WithTags("Drugs");
+        var group = app.MapGroup("/api/drugs").WithTags("Drugs").RequireAuthorization();
 
         group.MapGet("/", async (ISender sender, string? search, int page = 1, int pageSize = 10)
             => Results.Ok(await sender.Send(new GetDrugsQuery(search, page, pageSize))));

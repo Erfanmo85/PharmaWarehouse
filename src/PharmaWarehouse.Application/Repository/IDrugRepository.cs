@@ -8,4 +8,5 @@ public interface IDrugRepository : IRepository<Drug>
     Task<bool> CodeExistsAsync(string code, int? excludeId, CancellationToken ct);
     Task<(List<Drug> Items, int Total)> SearchAsync(
         string? search, int page, int pageSize, CancellationToken ct);
+    Task<List<Drug>> GetLowStockAsync(CancellationToken ct);
 }
