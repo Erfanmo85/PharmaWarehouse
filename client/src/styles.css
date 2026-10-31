@@ -1,1 +1,87 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Vazir';
+  src: url('/fonts/Vazir.woff2') format('woff2'), url('/fonts/Vazir.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazir';
+  src: url('/fonts/Vazir-Bold.woff2') format('woff2'), url('/fonts/Vazir-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('/fonts/Morabba-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* متن اصلی: Vazir */
+body {
+  font-family: 'Vazir', sans-serif;
+}
+
+/* فقط تیترها: Morabba */
+h1, h2, h3 {
+  font-family: 'Morabba', 'Vazir', sans-serif;
+  font-weight: 600;
+}
+
+/* فونت اجزای Material */
+html {
+  --mat-sys-display-large-font: 'Vazir', sans-serif;
+  --mat-sys-display-medium-font: 'Vazir', sans-serif;
+  --mat-sys-display-small-font: 'Vazir', sans-serif;
+  --mat-sys-headline-large-font: 'Vazir', sans-serif;
+  --mat-sys-headline-medium-font: 'Vazir', sans-serif;
+  --mat-sys-headline-small-font: 'Vazir', sans-serif;
+  --mat-sys-title-large-font: 'Vazir', sans-serif;
+  --mat-sys-title-medium-font: 'Vazir', sans-serif;
+  --mat-sys-title-small-font: 'Vazir', sans-serif;
+  --mat-sys-body-large-font: 'Vazir', sans-serif;
+  --mat-sys-body-medium-font: 'Vazir', sans-serif;
+  --mat-sys-body-small-font: 'Vazir', sans-serif;
+  --mat-sys-label-large-font: 'Vazir', sans-serif;
+  --mat-sys-label-medium-font: 'Vazir', sans-serif;
+  --mat-sys-label-small-font: 'Vazir', sans-serif;
+}
+.simple-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+  .simple-table th,
+  .simple-table td {
+    padding: 10px 12px;
+    text-align: start;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .simple-table th {
+    font-weight: 700;
+    background: #fafafa;
+  }
+
+.chip {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  background: #e6f4ea;
+  color: #1e6e3a;
+}
+
+  .chip.warn {
+    background: #fff4e0;
+    color: #8a5a00;
+  }
+
+  .chip.danger {
+    background: #fdecea;
+    color: #b3261e;
+  }

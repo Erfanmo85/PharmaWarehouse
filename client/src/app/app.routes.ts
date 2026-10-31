@@ -14,11 +14,31 @@ export const routes: Routes = [
       import('./layout/shell.component').then(m => m.ShellComponent),
     children: [
       {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
+      },
+      {
         path: 'drugs',
         loadComponent: () =>
           import('./features/drugs/drug-list.component').then(m => m.DrugListComponent),
       },
-      { path: '', pathMatch: 'full', redirectTo: 'drugs' },
+      {
+        path: 'drugs/new',
+        loadComponent: () =>
+          import('./features/drugs/drug-form.component').then(m => m.DrugFormComponent),
+      },
+      {
+        path: 'drugs/:id',
+        loadComponent: () =>
+          import('./features/drugs/drug-detail.component').then(m => m.DrugDetailComponent),
+      },
+      {
+        path: 'dispatch',
+        loadComponent: () =>
+          import('./features/stock/dispatch.component').then(m => m.DispatchComponent),
+      },
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     ],
   },
   { path: '**', redirectTo: '' },

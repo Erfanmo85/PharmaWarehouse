@@ -1,27 +1,28 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
+import { dosageLabel } from '../../core/models/dosage-forms';
 import { Drug } from '../../core/models/drug.model';
 import { DrugService } from '../../core/services/drug.service';
 
-const FORM_LABELS: Record<string, string> = {
-  Tablet: 'قرص',
-  Capsule: 'کپسول',
-  Syrup: 'شربت',
-  Injection: 'آمپول',
-  Ointment: 'پماد',
-};
-
 @Component({
   selector: 'app-drug-list',
-  imports: [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatProgressBarModule],
+  imports: [
+    RouterLink, MatButtonModule, MatTableModule, MatPaginatorModule,
+    MatFormFieldModule, MatInputModule, MatProgressBarModule,
+  ],
   template: `
-    <h2>لیست داروها</h2>
+    <div class="head">
+      <h2>لیست داروها</h2>
+      <a mat-flat-button routerLink="/drugs/new">داروی جدید</a>
+    </div>
 
     <mat-form-field appearance="outline" class="search">
       <mat-label>جستجو (نام یا کد)</mat-label>
@@ -45,7 +46,9 @@ const FORM_LABELS: Record<string, string> = {
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>نام دارو</th>
-          <td mat-cell *matCellDef="let d">{{ d.name }}</td>
+          <td mat-cell *matCellDef="let d">
+            <a [routerLink]="['/drugs', d.id]">{{ d.name }}</a>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="categoryName">
@@ -95,6 +98,7 @@ const FORM_LABELS: Record<string, string> = {
       showFirstLastButtons />
   `,
   styles: [`
+    .head { display: flex; justify-content: space-between; align-items: center; }
     .search { width: 100%; max-width: 360px; }
     .table-wrap { overflow-x: auto; }
     table { width: 100%; }
@@ -108,6 +112,7 @@ export class DrugListComponent implements OnInit {
   private readonly drugService = inject(DrugService);
 
   readonly columns = ['code', 'name', 'categoryName', 'dosageForm', 'totalStock', 'minStockLevel', 'status'];
+  readonly label = dosageLabel;
 
   readonly drugs = signal<Drug[]>([]);
   readonly total = signal(0);
@@ -132,10 +137,6 @@ export class DrugListComponent implements OnInit {
 
   ngOnInit() {
     this.load();
-  }
-
-  label(form: string) {
-    return FORM_LABELS[form] ?? form;
   }
 
   onSearch(value: string) {

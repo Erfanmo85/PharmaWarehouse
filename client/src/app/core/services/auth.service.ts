@@ -10,7 +10,24 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
 
-  private readonly _token = signal<string | null>(localStorage.getItem(this.tokenKey));
+  private readonly _token = signal<string | null>(this.loadToken());
+
+  // ۱) این متد را داخل کلاس اضافه کن
+  private isExpired(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+      return payload.exp * 1000 < Date.now();
+    } catch {
+      return true;
+    }
+  }
+
+  // ۲) مقدار اولیه signal را این‌طور کن
+
+  private loadToken(): string | null {
+    const saved = localStorage.getItem(this.tokenKey);
+    return saved && !this.isExpired(saved) ? saved : null;
+  }
 
   readonly isLoggedIn = computed(() => !!this._token());
 

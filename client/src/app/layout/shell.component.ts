@@ -11,8 +11,13 @@ import { AuthService } from '../core/services/auth.service';
   template: `
     <mat-toolbar>
       <span class="title">انبار دارو</span>
+
+      <a mat-button routerLink="/dashboard" routerLinkActive="active">داشبورد</a>
       <a mat-button routerLink="/drugs" routerLinkActive="active">داروها</a>
+      <a mat-button routerLink="/dispatch" routerLinkActive="active">خروج کالا</a>
+
       <span class="spacer"></span>
+
       <button mat-button (click)="auth.logout()">
         <mat-icon>logout</mat-icon>
         خروج
