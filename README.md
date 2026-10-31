@@ -1,6 +1,5 @@
 # PharmaWarehouse
 
-[فارسی](README.fa.md)
 
 A pharmacy inventory (warehouse) management system built with **Angular** and **ASP.NET Core Web API**. It helps a pharmacy keep track of its drugs, categories and batches, and warns about expiring and low-stock items.
 
